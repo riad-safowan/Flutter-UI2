@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ui_design/screens/home/models/MenuItem.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -113,12 +114,66 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
+          //banner
           Container(
             width: double.infinity,
-            height: 160,
-            margin: const EdgeInsets.only(right: 12, left: 12, top: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6)))
+            margin: const EdgeInsets.only(right: 12, left: 12, top: 20),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+            child: CarouselSlider(
+              items: const [
+                'assets/demo_images/banner1.png',
+                'assets/demo_images/banner2.png',
+                'assets/demo_images/banner3.png'
+              ].map((e) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: Image.asset(
+                          e,
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover,
+                        ));
+                  },
+                );
+              }).toList(),
+              options: CarouselOptions(
+                aspectRatio: 7 / 3,
+                viewportFraction: 1,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 5),
+                autoPlayAnimationDuration: const Duration(milliseconds: 400),
+              ),
+            ),
+          ),
+
+          //menu
+          Container(
+            margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: menuItems.map((e) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                        child: Column(
+                      children: [
+                        SvgPicture.asset(
+                          e.imageUrl,
+                          width: 40,
+                          height: 40,
+                        ),
+                        SizedBox(height: 10,),
+                        Text(e.name)
+                      ],
+                    ));
+                  },
+                );
+              }).toList(),
+            ),
+          )
         ],
       ),
     );

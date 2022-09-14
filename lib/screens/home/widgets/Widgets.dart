@@ -96,10 +96,11 @@ class HomeMenuOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double sWidth = MediaQuery.of(context).size.width;
     return Container(
-      margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
+      margin: EdgeInsets.only(top: 30),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: menuItems.map((item) {
           return Builder(
             builder: (BuildContext context) {
@@ -108,18 +109,33 @@ class HomeMenuOptions extends StatelessWidget {
                 onTap: () {
                   if (onClicked != null) onClicked!(item.name);
                 },
-                child: Column(
-                  children: [
-                    SvgPicture.asset(
-                      item.imageUrl,
-                      width: 40,
-                      height: 40,
+                child: Container(
+                  width: sWidth / menuItems.length,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: sWidth * .05 / menuItems.length),
+                    child: Column(
+                      children: [
+                        Container(
+                          constraints:
+                              const BoxConstraints(maxWidth: 50, maxHeight: 50),
+                          child: SvgPicture.asset(
+                            item.imageUrl,
+                            width: sWidth * .5 / menuItems.length,
+                            height: sWidth * .5 / menuItems.length,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          item.name,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 13),
+                        )
+                      ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(item.name)
-                  ],
+                  ),
                 ),
               );
             },

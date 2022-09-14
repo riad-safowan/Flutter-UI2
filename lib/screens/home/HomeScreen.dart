@@ -17,15 +17,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late double sWidth;
+
   @override
   Widget build(BuildContext context) {
+    sWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
           SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: sWidth,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -9,6 +9,8 @@ import 'package:ui_design/screens/home/widgets/Widgets.dart';
 typedef OnClick = void Function();
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -49,35 +51,44 @@ class _HomeScreenState extends State<HomeScreen> {
               ))
         ],
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
-          HomeBanner(
-              imgUrls: const [
-                'assets/demo_images/banner1.png',
-                'assets/demo_images/banner2.png',
-                'assets/demo_images/banner3.png'
-              ],
-              onClicked: (url) {
-                dev.log('banner image clicked: $url');
-              }),
-          Padding(
-            padding: const EdgeInsets.only(left: 6, right: 6, top: 25),
-            child: HomeMenuOptions(
-              menuItems: [
-                MenuOption(
-                    "assets/app_icons/glass_categories.svg", "Categories"),
-                MenuOption("assets/app_icons/glass_love.svg", "Anonder Jhor"),
-                MenuOption("assets/app_icons/glass_plane.svg", "Eid Anondo"),
-                MenuOption("assets/app_icons/glass_cards.svg", "Gift Card"),
-                MenuOption("assets/app_icons/glass_cart.svg", "Anondo Mela")
-              ],
-              onClicked: (name) {
-                dev.log('menu option clicked: $name');
-              },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            HomeBanner(
+                imgUrls: const [
+                  'assets/demo_images/banner1.png',
+                  'assets/demo_images/banner2.png',
+                  'assets/demo_images/banner3.png'
+                ],
+                onClicked: (url) {
+                  dev.log('banner image clicked: $url');
+                }),
+            Padding(
+              padding: const EdgeInsets.only(left: 6, right: 6, top: 25),
+              child: HomeMenuOptions(
+                menuItems: [
+                  MenuOption(
+                      "assets/app_icons/glass_categories.svg", "Categories"),
+                  MenuOption("assets/app_icons/glass_love.svg", "Anonder Jhor"),
+                  MenuOption("assets/app_icons/glass_plane.svg", "Eid Anondo"),
+                  MenuOption("assets/app_icons/glass_cards.svg", "Gift Card"),
+                  MenuOption("assets/app_icons/glass_cart.svg", "Anondo Mela")
+                ],
+                onClicked: (name) {
+                  dev.log('menu option clicked: $name');
+                },
+              ),
             ),
-          ),
-        ],
+            Padding(
+                padding: const EdgeInsets.only(top: 18),
+                child: columnTitleBar(title: 'Anondo by Category')),
+            Padding(
+              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+              child: CategoriesGrid(),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -116,4 +127,43 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )));
   }
+}
+
+SizedBox columnTitleBar({required String title}) {
+  return SizedBox(
+    height: 30,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          width: 12,
+          height: 40,
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Color(0xFFFF0000),
+                  Color(0xFFFBA533),
+                ],
+              ),
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(3),
+                  bottomRight: Radius.circular(3))),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Text(
+          title,
+          style: const TextStyle(
+            color: Color(0xFF3A494E),
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+          ),
+        )
+      ],
+    ),
+  );
 }

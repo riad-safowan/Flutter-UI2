@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ui_design/screens/home/models/CategoryCart.dart';
+import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 
 import '../models/MenuOption.dart';
 
@@ -129,7 +131,7 @@ class HomeMenuOptions extends StatelessWidget {
                         Text(
                           item.name,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 10),
+                          style: const TextStyle(fontSize: 11),
                         )
                       ],
                     ),
@@ -196,3 +198,116 @@ class HomeBanner extends StatelessWidget {
     );
   }
 }
+
+class CategoriesGrid extends StatelessWidget {
+  final List<CategoryItem> categories = [
+    CategoryItem(
+        imgUrl: 'assets/demo_images/category1.png',
+        name: "Groceries",
+        discount: -20),
+    CategoryItem(
+        imgUrl: "assets/demo_images/category2.png",
+        name: "Laptop & Computerothing",
+        discount: -20),
+    CategoryItem(
+        imgUrl: "assets/demo_images/category3.png",
+        name: "Life style",
+        discount: -20),
+    CategoryItem(
+        imgUrl: "assets/demo_images/category4.png",
+        name: "Mom And Babys",
+        discount: -20),
+    CategoryItem(
+        imgUrl: "assets/demo_images/category5.png",
+        name: "Automotive & Motorbike",
+        discount: -20),
+    CategoryItem(
+        imgUrl: "assets/demo_images/category6.png",
+        name: "Phones & Tablets",
+        discount: -20),
+    CategoryItem(
+        imgUrl: "assets/demo_images/category7.png",
+        name: "Tourism",
+        discount: -20),
+    CategoryItem(
+        imgUrl: "assets/demo_images/category8.png",
+        name: "Media,Music & Books",
+        discount: -20),
+  ];
+
+  CategoriesGrid({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DynamicHeightGridView(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisCount: 4,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        itemCount: categories.length,
+        builder: (BuildContext context, int index) => CategoryCart(
+              cart: categories[index],
+            ));
+  }
+}
+
+class CategoryCart extends StatelessWidget {
+  final CategoryItem cart;
+
+  const CategoryCart({Key? key, required this.cart}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8), color: Colors.white),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                cart.imgUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: const Color(0xFFFF0000),
+                borderRadius: BorderRadius.circular(20)),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+            child: Text(
+              '${cart.discount} %',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(2),
+            height: 40,
+            child: Center(
+              child: Text(
+                cart.name,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    color: Color(0xFF3A494E), fontWeight: FontWeight.bold, fontSize: 10),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// return LayoutBuilder(builder: (context, constraints) {
+// double width = constraints.maxWidth;
+// return Placeholder();
+// });

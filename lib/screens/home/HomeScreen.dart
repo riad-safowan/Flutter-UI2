@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ui_design/screens/home/models/MenuOption.dart';
 import 'dart:developer' as dev;
 
@@ -64,18 +61,22 @@ class _HomeScreenState extends State<HomeScreen> {
               onClicked: (url) {
                 dev.log('banner image clicked: $url');
               }),
-          HomeMenuOptions(
-            menuItems: [
-              MenuOption("assets/app_icons/glass_categories.svg", "Categories"),
-              MenuOption("assets/app_icons/glass_love.svg", "Anonder Jhor"),
-              MenuOption("assets/app_icons/glass_plane.svg", "Eid Anondo"),
-              MenuOption("assets/app_icons/glass_cards.svg", "Gift Card"),
-              MenuOption("assets/app_icons/glass_cart.svg", "Anondo Mela")
-            ],
-            onClicked: (name) {
-              dev.log('menu option clicked: $name');
-            },
-          )
+          Padding(
+            padding: const EdgeInsets.only(left: 6, right: 6, top: 25),
+            child: HomeMenuOptions(
+              menuItems: [
+                MenuOption(
+                    "assets/app_icons/glass_categories.svg", "Categories"),
+                MenuOption("assets/app_icons/glass_love.svg", "Anonder Jhor"),
+                MenuOption("assets/app_icons/glass_plane.svg", "Eid Anondo"),
+                MenuOption("assets/app_icons/glass_cards.svg", "Gift Card"),
+                MenuOption("assets/app_icons/glass_cart.svg", "Anondo Mela")
+              ],
+              onClicked: (name) {
+                dev.log('menu option clicked: $name');
+              },
+            ),
+          ),
         ],
       ),
     );

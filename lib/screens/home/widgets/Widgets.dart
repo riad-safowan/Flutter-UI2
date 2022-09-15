@@ -96,24 +96,22 @@ class HomeMenuOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double sWidth = MediaQuery.of(context).size.width;
-    return Container(
-      margin: EdgeInsets.only(top: 30),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: menuItems.map((item) {
-          return Builder(
-            builder: (BuildContext context) {
-              return InkWell(
-                hoverColor: Colors.transparent,
-                onTap: () {
-                  if (onClicked != null) onClicked!(item.name);
-                },
-                child: Container(
-                  width: sWidth / menuItems.length,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: sWidth * .05 / menuItems.length),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double sWidth = constraints.maxWidth;
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: menuItems.map((item) {
+            return Builder(
+              builder: (BuildContext context) {
+                return InkWell(
+                  hoverColor: Colors.transparent,
+                  onTap: () {
+                    if (onClicked != null) onClicked!(item.name);
+                  },
+                  child: SizedBox(
+                    width: sWidth / menuItems.length,
                     child: Column(
                       children: [
                         Container(
@@ -121,8 +119,8 @@ class HomeMenuOptions extends StatelessWidget {
                               const BoxConstraints(maxWidth: 50, maxHeight: 50),
                           child: SvgPicture.asset(
                             item.imageUrl,
-                            width: sWidth * .5 / menuItems.length,
-                            height: sWidth * .5 / menuItems.length,
+                            width: sWidth * .45 / menuItems.length,
+                            height: sWidth * .45 / menuItems.length,
                           ),
                         ),
                         const SizedBox(
@@ -131,17 +129,17 @@ class HomeMenuOptions extends StatelessWidget {
                         Text(
                           item.name,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 13),
+                          style: const TextStyle(fontSize: 10),
                         )
                       ],
                     ),
                   ),
-                ),
-              );
-            },
-          );
-        }).toList(),
-      ),
+                );
+              },
+            );
+          }).toList(),
+        );
+      },
     );
   }
 }
@@ -172,7 +170,7 @@ class HomeBanner extends StatelessWidget {
                     width: double.infinity,
                     height: double.infinity,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 13),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(

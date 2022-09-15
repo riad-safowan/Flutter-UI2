@@ -32,3 +32,16 @@ flutter:
     - assets/
     - assets/demo_images/
     - assets/app_icons/
+
+  fonts:
+    - family: K2D
+      fonts:
+        - asset: fonts/K2D-Regular.ttf
+          weight: 400
+        - asset: fonts/K2D-ExtraLight.ttf
+          weight: 200
+        - asset: fonts/K2D-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: fonts/K2D-Bold.ttf
+          weight: 700

@@ -15,6 +15,10 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(useInheritedMediaQuery:true, debugShowCheckedModeBanner: false, home: HomeScreen());
+    return MaterialApp(
+      theme: ThemeData(fontFamily: 'K2D'),
+        useInheritedMediaQuery: true,
+        debugShowCheckedModeBanner: false,
+        home: HomeScreen());
   }
 }

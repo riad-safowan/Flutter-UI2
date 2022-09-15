@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart';
+import 'package:ui_design/screens/home/bloc/home_bloc.dart';
 import 'package:ui_design/screens/home/models/MenuOption.dart';
 import 'dart:developer' as dev;
 
 import 'package:ui_design/screens/home/widgets/Widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 typedef OnClick = void Function();
 
@@ -41,7 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       dev.log('text updated: $s');
                     },
                     onSearchBtnClicked: (s) {
-                      dev.log('search text: $s');
+                      BlocProvider.of<HomeBloc>(context)
+                          .add(MakeSearch(query: s));
                     },
                   ),
                   appBarNotificationButton(onClick: () {
@@ -52,42 +55,40 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            HomeBanner(
-                imgUrls: const [
-                  'assets/demo_images/banner1.png',
-                  'assets/demo_images/banner2.png',
-                  'assets/demo_images/banner3.png'
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (BuildContext context, state) {
+            if (state is HomeInitial) {
+              return Column(
+                children: [
+                  const SizedBox(height: 20),
+                  HomeBanner(
+                      imgUrls: state.bannerImages,
+                      onClicked: (url) {
+                        dev.log('banner image clicked: $url');
+                      }),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 6, right: 6, top: 25),
+                    child: HomeMenuOptions(
+                      menuItems: state.menuOptions,
+                      onClicked: (name) {
+                        dev.log('menu option clicked: $name');
+                      },
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 18),
+                      child: columnTitleBar(title: 'Anondo by Category')),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 10, left: 10, right: 10),
+                    child: CategoriesGrid(categories: state.categories),
+                  )
                 ],
-                onClicked: (url) {
-                  dev.log('banner image clicked: $url');
-                }),
-            Padding(
-              padding: const EdgeInsets.only(left: 6, right: 6, top: 25),
-              child: HomeMenuOptions(
-                menuItems: [
-                  MenuOption(
-                      "assets/app_icons/glass_categories.svg", "Categories"),
-                  MenuOption("assets/app_icons/glass_love.svg", "Anonder Jhor"),
-                  MenuOption("assets/app_icons/glass_plane.svg", "Eid Anondo"),
-                  MenuOption("assets/app_icons/glass_cards.svg", "Gift Card"),
-                  MenuOption("assets/app_icons/glass_cart.svg", "Anondo Mela")
-                ],
-                onClicked: (name) {
-                  dev.log('menu option clicked: $name');
-                },
-              ),
-            ),
-            Padding(
-                padding: const EdgeInsets.only(top: 18),
-                child: columnTitleBar(title: 'Anondo by Category')),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-              child: CategoriesGrid(),
-            )
-          ],
+              );
+            } else {
+              return const Text('something went wrong');
+            }
+          },
         ),
       ),
     );

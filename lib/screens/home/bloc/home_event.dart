@@ -8,10 +8,19 @@ abstract class HomeEvent extends Equatable {
 }
 
 class MakeSearch extends HomeEvent {
-  String query;
+  final String query;
 
-  MakeSearch({required this.query});
+  const MakeSearch({required this.query});
 
   @override
   List<Object> get props => [query];
+}
+
+class ItemClicked extends HomeEvent {
+  final String text;
+
+  const ItemClicked({required this.text});
+
+  @override
+  List<Object> get props => [text];
 }

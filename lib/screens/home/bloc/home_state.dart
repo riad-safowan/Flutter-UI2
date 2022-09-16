@@ -5,13 +5,13 @@ abstract class HomeState extends Equatable {
 }
 
 class HomeInitial extends HomeState {
-  List<String> bannerImages = [
+ final List<String> bannerImages = [
     'assets/demo_images/banner1.png',
     'assets/demo_images/banner2.png',
     'assets/demo_images/banner3.png'
   ];
 
-  List<MenuOption> menuOptions = [
+ final List<MenuOption> menuOptions = [
     MenuOption("assets/app_icons/glass_categories.svg", "Categories"),
     MenuOption("assets/app_icons/glass_love.svg", "Anonder Jhor"),
     MenuOption("assets/app_icons/glass_plane.svg", "Eid Anondo"),
@@ -19,7 +19,7 @@ class HomeInitial extends HomeState {
     MenuOption("assets/app_icons/glass_cart.svg", "Anondo Mela")
   ];
 
-  List<CategoryItem> categories = [
+ final List<CategoryItem> categories = [
     CategoryItem(
         imgUrl: 'assets/demo_images/category1.png',
         name: "Groceries",

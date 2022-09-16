@@ -23,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     sWidth = MediaQuery.of(context).size.width;
+    var blockProvider = BlocProvider.of<HomeBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -36,19 +38,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   profileAvatar(
                       imgUrl: 'assets/demo_images/profile_image.png',
                       onClick: () {
-                        dev.log('profile avatar clicked');
+                        blockProvider
+                            .add(ItemClicked(text: 'profile avatar clicked'));
                       }),
                   SearchBar(
                     onTextChanged: (s) {
                       dev.log('text updated: $s');
                     },
                     onSearchBtnClicked: (s) {
-                      BlocProvider.of<HomeBloc>(context)
-                          .add(MakeSearch(query: s));
+                      blockProvider.add(MakeSearch(query: s));
                     },
                   ),
                   appBarNotificationButton(onClick: () {
-                    dev.log('notification button clicked');
+                    blockProvider
+                        .add(ItemClicked(text: 'notification button clicked'));
                   }),
                 ],
               ))
@@ -64,14 +67,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   HomeBanner(
                       imgUrls: state.bannerImages,
                       onClicked: (url) {
-                        dev.log('banner image clicked: $url');
+                        blockProvider.add(
+                            ItemClicked(text: 'banner image clicked: $url'));
                       }),
                   Padding(
                     padding: const EdgeInsets.only(left: 6, right: 6, top: 25),
                     child: HomeMenuOptions(
                       menuItems: state.menuOptions,
                       onClicked: (name) {
-                        dev.log('menu option clicked: $name');
+                        blockProvider.add(
+                            ItemClicked(text: 'menu option clicked: $name'));
                       },
                     ),
                   ),

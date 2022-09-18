@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'dart:developer' as dev;
 
 import '../models/CategoryCart.dart';
+import '../models/FlashCart.dart';
 import '../models/MenuOption.dart';
 
 part 'home_event.dart';

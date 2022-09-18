@@ -54,6 +54,12 @@ class HomeInitial extends HomeState {
         discount: -20),
   ];
 
+ final List<FlashCart>flashes = [
+   FlashCart(imgUrl: 'assets/demo_images/flash1.png', isAvailable: true, price: 3500, discount: 20),
+   FlashCart(imgUrl: 'assets/demo_images/flash2.png', isAvailable: true, price: 3500, discount: 20),
+   FlashCart(imgUrl: 'assets/demo_images/flash3.png', isAvailable: true, price: 3500, discount: 20),
+ ];
+
   @override
-  List<Object> get props => [bannerImages, menuOptions, categories];
+  List<Object> get props => [bannerImages, menuOptions, categories, flashes];
 }
